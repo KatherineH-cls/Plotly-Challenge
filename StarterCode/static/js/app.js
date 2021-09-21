@@ -4,20 +4,13 @@ d3.json("samples.json").then((data) => {
 
     var id = "940";
 
-    // var bar_data = data.samples[0];
-    // console.log(bar_data);
-
-    // var id_data.otu_ids = bar_data.otu_ids;
-    // var id_data.labels = bar_data.labels;
-    // var id_data.values = bar_data.values;
-
-    // console.log(id_data);
-
     var samples = data.samples;
-    // Create empty arrays to store the dish and spice values
+
+
+    // Create empty arrays to store the bar chart data
     var bact = [];
 
-    // Iterate through each recipe object
+    // Iterate through each sample
     samples.forEach((sample) => {
 
         if (sample.id === id) {
@@ -25,47 +18,42 @@ d3.json("samples.json").then((data) => {
             var labels = sample.otu_labels;
             var values = sample.sample_values;
             var otu_id = sample.otu_ids;
-            
-            // console.log(labels);
+
+            console.log(otu_id);
+
+            // add to array
             for (i = 0; i < labels.length; i++) {
                 bact.push({ b_label: labels[i], b_value: values[i], b_id: otu_id[i] });
             };
             console.log(bact);
-            bactSorted = bact.sort((a, b) => b.b_value - a.b_value).slice(0,10);
+            bactSorted = bact.sort((a, b) => b.b_value - a.b_value).slice(0, 10).reverse();
             console.log(bactSorted);
 
+            
+            // horizontal bar chart
+            var trace_bar = {
+                type: 'bar',
+                x: bactSorted.map(bactSorted => bactSorted.b_value),
+                y: bactSorted.map(bactSorted => `OTU ${bactSorted.b_id}`),
+                orientation: 'h',
+                text: bactSorted.map(bactSorted => bactSorted.b_label),
+                marker: {color: 'rgb(142,124,195)'}
+                };
+
+            var data = [trace_bar];  
+            
+            var layout = {
+                title: "Common Bacteria",
+                xaxis: { title: "Frequency" },
+                yaxis: { title: "Bacteria Grouping" }
+              };
+
+              Plotly.newPlot("bar", data, layout);
 
         }
-
-
+        
     });
-    // // Iterate through each recipe object
-    // samples.forEach((sample) => {
 
-    //     // Iterate through each key and value
-    //     Object.entries(sample).forEach(([key, value]) => {
-
-
-    //         // Use the key to determine which array to push the value to
-    //         if (sample.id === id) {
-    //             var labels = samples.map(sample => sample.otu_ids);
-    //             var values = samples.map(sample => sample.sample_values);
-    //             console.log(labels);
-    //             console.log(values);
-
-    //         }
-
-    //     });
-    // });
-
-
-
-
-
-    // function bar_data(sample) {
-    //     var bar_data => 
-
-    // }
 
 
 
