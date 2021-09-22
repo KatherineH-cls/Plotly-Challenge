@@ -2,8 +2,6 @@
 d3.json("samples.json").then((data) => {
     console.log(data);
 
-    var id = "940";
-
     var samples = data.samples;
     var names = data.names;
     var metadata = data.metadata;
@@ -24,11 +22,8 @@ d3.json("samples.json").then((data) => {
         // Iterate through each person to select right demographics
         metadata.forEach((person) => {
             if (person.id.toString() === id) {
-                console.log(person);
                 demographics = person;
 
-                console.log(demographics.age);
-                console.log(demographics.ethnicity);
                 console.log(demographics);
 
                 var details = d3.select("#sample-metadata");
@@ -37,16 +32,9 @@ d3.json("samples.json").then((data) => {
                     var row = details.append("li").classed("list-group-item", true);
                     row.text(`${key}: ${value}`);
                 });
-                
-                
-
-
             }
-
-            
         });
     }
-
 
     // function to draw the bar chart
     function barChart(id) {
@@ -89,7 +77,7 @@ d3.json("samples.json").then((data) => {
                     yaxis: { title: "Bacteria Grouping" }
                 };
 
-                var config = {responsive: true}
+                var config = { responsive: true }
 
                 Plotly.newPlot("bar", data, layout, config);
 
@@ -110,45 +98,87 @@ d3.json("samples.json").then((data) => {
                 var values = sample.sample_values;
                 var otu_id = sample.otu_ids;
 
-                
+
                 var trace_bubble = {
                     x: otu_id,
                     y: values,
                     text: labels,
                     mode: 'markers',
                     marker: {
-                      color: otu_id,
-                      colorscale: 'Picnic',
-                      size: values,
-                      
+                        color: otu_id,
+                        colorscale: 'Picnic',
+                        size: values,
+
                     }
-                  };
-                  
-                  var data = [trace_bubble];
-                  
-                  var layout = {
+                };
+
+                var data = [trace_bubble];
+
+                var layout = {
                     title: 'Bacteria Frequency by OTU Grouping',
                     showlegend: false,
                     xaxis: { title: "OTU ID" },
                     yaxis: { title: "Bacteria Frequency" }
-                  };
+                };
 
-                  var config = {responsive: true}
+                var config = { responsive: true }
 
-                  
-                  Plotly.newPlot("bubble", data, layout, config);
+
+                Plotly.newPlot("bubble", data, layout, config);
 
             }
 
         });
-        
-        
+
+
+    }
+
+    // function to draw the wash gauge
+    function washChart(id) {
+        // Iterate through each person to select right demographics
+        metadata.forEach((person) => {
+            if (person.id.toString() === id) {
+                wash_freq = person.wfreq;
+                console.log(`washing frequency is ${wash_freq}`)
+                
+                var data = [
+                    {
+                      domain: { x: [0, 1], y: [0, 1] },
+                      
+                      value: wash_freq,
+                      title: { text: "Belly Button Washing Frequency" },
+                      type: "indicator",
+                      mode: "gauge+number",
+                      gauge: {
+                        axis: { range: [0, 9], tick0: 0, dtick:1 },
+                        bar: { color: "purple" },
+                        steps: [
+                          { range: [0, 2], color: 'pink'},
+                          { range: [2, 4], color: 'blue'},
+                          { range: [4, 6], color: 'purple'},
+                          { range: [6, 8], color: 'white'},
+                          { range: [8, 10], color: 'yellow'},
+                          
+                        ],
+                        
+                      }
+                    }
+                  ];
+                  
+                  var layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+
+                  var config = { responsive: true }
+                  Plotly.newPlot("gauge", data, layout, config);
+            }
+        });
     }
 
     // initialise page
+    var id = "940";
     getDemographics(id);
     barChart(id);
     bubbleChart(id);
+    washChart(id);
 
 
 
