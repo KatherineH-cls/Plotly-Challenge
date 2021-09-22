@@ -147,19 +147,22 @@ d3.json("samples.json").then((data) => {
                         domain: { x: [0, 1], y: [0, 1] },
 
                         value: wash_freq,
-                        title: { text: "Belly Button Washing Frequency" },
+                        title: { text: "Belly Button Washing Frequency <br> Scrubs per Week"},
                         type: "indicator",
                         mode: "gauge+number",
                         gauge: {
                             axis: { range: [0, 9], tick0: 0, dtick: 1 },
                             bar: { color: "purple" },
                             steps: [
-                                { range: [0, 2], color: 'pink' },
-                                { range: [2, 4], color: 'blue' },
-                                { range: [4, 6], color: 'purple' },
-                                { range: [6, 8], color: 'white' },
-                                { range: [8, 10], color: 'yellow' },
-
+                                { range: [0, 1], color: 'lavender' },
+                                { range: [1, 2], color: 'thistle' },
+                                { range: [2, 3], color: 'plum' },
+                                { range: [3, 4], color: 'violet' },
+                                { range: [4, 5], color: 'orchid' },
+                                { range: [5, 6], color: 'mediumorchid' },
+                                { range: [6, 7], color: 'blueviolet' },
+                                { range: [7, 8], color: 'slateblue' },
+                                { range: [8, 9], color: 'lightsteelblue' }
                             ],
 
                         }

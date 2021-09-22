@@ -7,10 +7,13 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Bellybutton Biodiversity</title>
   <!-- Bootstrap style -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   <!-- Javascript / Popper bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
+
   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 </head>
 
@@ -18,26 +21,41 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-12 jumbotron text-center">
-        <h1>Belly Button Biodiversity Dashboard</h1>
-        <p>Use the interactive charts below to explore the dataset</p>
+      <div class="card text-center">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+          <h1 class="card-title">Belly Button Biodiversity Dashboard</h1>
+          <p class="card-text">Use the interactive charts below to explore the dataset</p>
+        </div>
+        <div class="card-footer text-muted">
+        </div>
+      </div>
+      <div>
+        <h5 class="text-center"></h5>
       </div>
     </div>
     <div class="row">
       <div class="col-md-3">
-        <div class="well">
-          <h5>Test Subject ID No.:</h5>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+        <div class="card" style="width: 18rem;">
+          <div class="card-header">
+            Test Subject ID:
+          </div>
+          <div class="card-body">
+            <select id="selDataset"></select></select>
+          </div>
         </div>
         <div class="card" style="width: 18rem;">
-          <div class="card-body" >
-            <h5 class="card-title">Demographic Info</h5>
+          <div class="card-header">
+            Demographic Info
+          </div>
+          <div class="card-body">
             <ul class="list-group list-group-flush" id="sample-metadata"></ul>
           </div>
         </div>
       </div>
       <div class="col-md-4">
-        <div id="bar"></div>
+        <div id="bar" class="d-flex justify-content"></div>
       </div>
       <div class="col-md-5">
         <div id="gauge"></div>
@@ -55,7 +73,7 @@
   <script src="./static/js/app.js"></script>
   <!--<script src="./static/js/bonus.js"></script>-->
   <script src="samples.json"></script>
-  
+
 </body>
 
 </html>
