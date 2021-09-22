@@ -6,7 +6,7 @@ d3.json("samples.json").then((data) => {
 
     var samples = data.samples;
     var names = data.names;
-    console.log(names);
+    var metadata = data.metadata;
 
     //add list of test subjects to dropdown box
     var options = d3.select("#selDataset");
@@ -15,9 +15,38 @@ d3.json("samples.json").then((data) => {
         row.property("value", index);
         row.text(name);
     });
-      
 
-    // <option value="dataset1">US</option>
+    // function to grab the demographic info
+    // console.log(metadata);
+    function getDemographics(id) {
+        var demographics = [];
+
+        // Iterate through each person to select right demographics
+        metadata.forEach((person) => {
+            if (person.id.toString() === id) {
+                console.log(person);
+                demographics = person;
+
+                console.log(demographics.age);
+                console.log(demographics.ethnicity);
+                console.log(demographics);
+
+                var details = d3.select("#sample-metadata");
+
+                Object.entries(demographics).forEach(([key, value]) => {
+                    var row = details.append("li").classed("list-group-item", true);
+                    row.text(`${key}: ${value}`);
+                });
+                
+                
+
+
+            }
+
+            
+        });
+    }
+
 
     // function to draw the bar chart
     function barChart(id) {
@@ -32,8 +61,6 @@ d3.json("samples.json").then((data) => {
                 var labels = sample.otu_labels;
                 var values = sample.sample_values;
                 var otu_id = sample.otu_ids;
-
-                console.log(otu_id);
 
                 // add to array
                 for (i = 0; i < labels.length; i++) {
@@ -69,6 +96,7 @@ d3.json("samples.json").then((data) => {
         });
     }
 
+    getDemographics(id);
     barChart(id);
 
 
