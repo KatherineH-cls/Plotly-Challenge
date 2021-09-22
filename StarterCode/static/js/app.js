@@ -10,7 +10,7 @@ d3.json("samples.json").then((data) => {
     var options = d3.select("#selDataset");
     names.forEach((name, index) => {
         var row = options.append("option");
-        row.property("value", index);
+        row.property("value", name);
         row.text(name);
     });
 
@@ -27,6 +27,7 @@ d3.json("samples.json").then((data) => {
                 console.log(demographics);
 
                 var details = d3.select("#sample-metadata");
+                details.selectAll("li").remove();
 
                 Object.entries(demographics).forEach(([key, value]) => {
                     var row = details.append("li").classed("list-group-item", true);
@@ -140,35 +141,35 @@ d3.json("samples.json").then((data) => {
             if (person.id.toString() === id) {
                 wash_freq = person.wfreq;
                 console.log(`washing frequency is ${wash_freq}`)
-                
+
                 var data = [
                     {
-                      domain: { x: [0, 1], y: [0, 1] },
-                      
-                      value: wash_freq,
-                      title: { text: "Belly Button Washing Frequency" },
-                      type: "indicator",
-                      mode: "gauge+number",
-                      gauge: {
-                        axis: { range: [0, 9], tick0: 0, dtick:1 },
-                        bar: { color: "purple" },
-                        steps: [
-                          { range: [0, 2], color: 'pink'},
-                          { range: [2, 4], color: 'blue'},
-                          { range: [4, 6], color: 'purple'},
-                          { range: [6, 8], color: 'white'},
-                          { range: [8, 10], color: 'yellow'},
-                          
-                        ],
-                        
-                      }
-                    }
-                  ];
-                  
-                  var layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+                        domain: { x: [0, 1], y: [0, 1] },
 
-                  var config = { responsive: true }
-                  Plotly.newPlot("gauge", data, layout, config);
+                        value: wash_freq,
+                        title: { text: "Belly Button Washing Frequency" },
+                        type: "indicator",
+                        mode: "gauge+number",
+                        gauge: {
+                            axis: { range: [0, 9], tick0: 0, dtick: 1 },
+                            bar: { color: "purple" },
+                            steps: [
+                                { range: [0, 2], color: 'pink' },
+                                { range: [2, 4], color: 'blue' },
+                                { range: [4, 6], color: 'purple' },
+                                { range: [6, 8], color: 'white' },
+                                { range: [8, 10], color: 'yellow' },
+
+                            ],
+
+                        }
+                    }
+                ];
+
+                var layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+
+                var config = { responsive: true }
+                Plotly.newPlot("gauge", data, layout, config);
             }
         });
     }
@@ -179,6 +180,19 @@ d3.json("samples.json").then((data) => {
     barChart(id);
     bubbleChart(id);
     washChart(id);
+
+    function optionChanged() {
+        var dropdownMenu = d3.select("#selDataset");
+        var id = dropdownMenu.property("value");
+        console.log(`update for ${id}`);
+        getDemographics(id);
+        barChart(id);
+        bubbleChart(id);
+        washChart(id);
+    }
+
+    // update page on dropdown selection
+    d3.select("#selDataset").on("change", optionChanged);
 
 
 
