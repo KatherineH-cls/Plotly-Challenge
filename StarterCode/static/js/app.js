@@ -89,15 +89,66 @@ d3.json("samples.json").then((data) => {
                     yaxis: { title: "Bacteria Grouping" }
                 };
 
-                Plotly.newPlot("bar", data, layout);
+                var config = {responsive: true}
+
+                Plotly.newPlot("bar", data, layout, config);
 
             }
 
         });
     }
 
+    // function to draw the bubble chart
+    function bubbleChart(id) {
+
+        // Iterate through each sample
+        samples.forEach((sample) => {
+
+            if (sample.id === id) {
+                console.log(sample);
+                var labels = sample.otu_labels;
+                var values = sample.sample_values;
+                var otu_id = sample.otu_ids;
+
+                
+                var trace_bubble = {
+                    x: otu_id,
+                    y: values,
+                    text: labels,
+                    mode: 'markers',
+                    marker: {
+                      color: otu_id,
+                      colorscale: 'Picnic',
+                      size: values,
+                      
+                    }
+                  };
+                  
+                  var data = [trace_bubble];
+                  
+                  var layout = {
+                    title: 'Bacteria Frequency by OTU Grouping',
+                    showlegend: false,
+                    xaxis: { title: "OTU ID" },
+                    yaxis: { title: "Bacteria Frequency" }
+                  };
+
+                  var config = {responsive: true}
+
+                  
+                  Plotly.newPlot("bubble", data, layout, config);
+
+            }
+
+        });
+        
+        
+    }
+
+    // initialise page
     getDemographics(id);
     barChart(id);
+    bubbleChart(id);
 
 
 
@@ -110,30 +161,7 @@ d3.json("samples.json").then((data) => {
 
 
 
-// Create an array of each country's numbers
-// var us = Object.values(data.us);
-// var uk = Object.values(data.uk);
-// var canada = Object.values(data.canada);
 
-// Create an array of music provider labels
-// var labels = Object.keys(data);
-// console.log(labels);
-
-// Display the default plot
-// function init() {
-//   var data = [{
-//     values: us,
-//     labels: labels,
-//     type: "pie"
-//   }];
-
-//   var layout = {
-//     height: 600,
-//     width: 800
-//   };
-
-//   Plotly.newPlot("pie", data, layout);
-// }
 
 // // On change to the DOM, call getData()
 // d3.selectAll("#selDataset").on("change", getData);
