@@ -73,7 +73,7 @@ d3.json("samples.json").then((data) => {
                 var data = [trace_bar];
 
                 var layout = {
-                    title: "Common Bacteria",
+                    title: "Most Common Bacteria Found",
                     xaxis: { title: "Frequency" },
                     yaxis: { title: "Bacteria Grouping" }
                 };
@@ -147,7 +147,7 @@ d3.json("samples.json").then((data) => {
                         domain: { x: [0, 1], y: [0, 1] },
 
                         value: wash_freq,
-                        title: { text: "Belly Button Washing Frequency <br> Scrubs per Week"},
+                        title: { text: "Belly Button Washing Frequency <br> Scrubs per Week" },
                         type: "indicator",
                         mode: "gauge+number",
                         gauge: {
@@ -169,7 +169,7 @@ d3.json("samples.json").then((data) => {
                     }
                 ];
 
-                var layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+                var layout = {margin: { t: 0, b: 0 } };
 
                 var config = { responsive: true }
                 Plotly.newPlot("gauge", data, layout, config);
@@ -185,6 +185,8 @@ d3.json("samples.json").then((data) => {
     washChart(id);
 
     function optionChanged() {
+        // Prevent the page from refreshing
+        d3.event.preventDefault();
         var dropdownMenu = d3.select("#selDataset");
         var id = dropdownMenu.property("value");
         console.log(`update for ${id}`);
@@ -197,48 +199,6 @@ d3.json("samples.json").then((data) => {
     // update page on dropdown selection
     d3.select("#selDataset").on("change", optionChanged);
 
-
-
-
-
-
 });
-
-
-
-
-
-
-
-// // On change to the DOM, call getData()
-// d3.selectAll("#selDataset").on("change", getData);
-
-// // Function called by DOM changes
-// function getData() {
-//   var dropdownMenu = d3.select("#selDataset");
-//   // Assign the value of the dropdown menu option to a variable
-//   var dataset = dropdownMenu.property("value");
-//   // Initialize an empty array for the country's data
-//   var data = [];
-
-//   if (dataset == 'us') {
-//       data = us;
-//   }
-//   else if (dataset == 'uk') {
-//       data = uk;
-//   }
-//   else if (dataset == 'canada') {
-//       data = canada;
-//   }
-//   // Call function to update the chart
-//   updatePlotly(data);
-// }
-
-// // Update the restyled plot's values
-// function updatePlotly(newdata) {
-//   Plotly.restyle("pie", "values", [newdata]);
-// }
-
-// init();
 
 
